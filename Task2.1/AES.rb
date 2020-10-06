@@ -1,0 +1,34 @@
+# Task 2.1 : Rewriting AES  encryption and decryption program to Ruby
+
+require 'openssl'
+require 'digest/sha2'
+require 'base64'
+#selecting which algorhitm to use
+alg ="AES-256-CBC"
+
+digest =Digest::SHA256.new
+digest.update("symmetric key")
+key= digest.digest
+
+iv= OpenSSL::Cipher::Cipher.new(alg).random_iv
+
+aes = OpenSSL::Cipher::Cipher.new(alg)
+aes.encrypt
+aes.key = key
+aes.iv = iv
+
+cipher = aes.update ("password") #encrypting the password
+cipher<<aes.final
+cipher64 = [cipher].pack('m')
+puts 'Encryption :'
+puts cipher64
+
+
+decode_cipher = OpenSSL::Cipher::Cipher.new(alg)
+decode_cipher.decrypt
+decode_cipher.key = key
+decode_cipher.iv = iv
+plain = decode_cipher.update(cipher64.unpack('m')[0])
+plain << decode_cipher.final
+puts 'Decryption:'
+puts plain
