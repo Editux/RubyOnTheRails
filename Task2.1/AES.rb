@@ -11,8 +11,7 @@ digest =Digest::SHA256.new
 digest.update("symmetric key")
 key= digest.digest
 
-# For security as part of the encryption algorithm, we create a random
-# initialization vector.
+# For security as part of the encryption algorithm, we create a random initialization vector.
 iv= OpenSSL::Cipher::Cipher.new(alg).random_iv
 
 aes = OpenSSL::Cipher::Cipher.new(alg)
