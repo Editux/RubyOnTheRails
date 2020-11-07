@@ -21,7 +21,7 @@ aes.iv = iv
 
 cipher = aes.update ("password") #encrypting the password
 cipher<<aes.final
-# Base64 the cipher
+#Base64 the cipher
 cipher64 = [cipher].pack('m')
 puts 'Encryption :'
 puts cipher64
